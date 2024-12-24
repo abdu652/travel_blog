@@ -26,11 +26,62 @@ export const addPost = async (req,res)=>{
       if(!title || !description || !location || !image || !date || !user){
          return res.status(422).json({message:"fill all fields"})
       }     
-      
+      const post = new Post({title, description, location, image, date:new Date(`${date}`), user})
+      await post.save()
+      return res.status(200).json({message:"post submitted successfull.",post})
    }catch(err){
       console.log(err);
       return res.status(500).json({
          message:"error in addPost file",
+         error:err.message
+      })
+   }
+}
+
+export const getPostById = async (req,res)=>{
+   try{
+      const {id} = req.params;
+      const post = await Post.findById(id);
+      if(!post){
+         return res.status(404).json({message:"Post not found!"});
+      }
+      return res.status(200).json({post})
+   }catch(err){
+      console.log(err);
+      return res.status(500).json({
+         message:"error occurs in getPpostById",
+         error:err.message
+      })
+   }
+}
+
+export const updatePost = async (req,res)=>{
+   try{
+      const {id} = req.params;
+      const { title, description, location, image, date} = req.body;
+      if (!title || !description || !location || !image || !date) {
+         return res.status(422).json({ message: "fill all fields" });
+      }
+      const post = await Post.findByIdAndUpdate(id,{ title, description, location, image, date:new Date(`${date}`)});
+      return res.status(200).json({message:"updated successfully."});
+   }catch(err){
+      console.log(err);
+      return res.status(500).json({
+         message:"error occurs in updatePost.",
+         error:err.message
+      })
+   }
+}
+
+export const deletePost = async (req,res)=>{
+   try{
+      const {id} = req.params;
+      const post = await Post.findByIdAndDelete(id);
+      return res.status(200).json({message:"post deleted successfully."})
+   }catch(err){
+      console.log(err);
+      return res.status(500).json({
+         message:"error occurs in deletePost.",
          error:err.message
       })
    }
