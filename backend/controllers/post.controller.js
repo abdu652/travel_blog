@@ -1,4 +1,6 @@
+import mongoose from 'mongoose';
 import Post from '../models/post.model.js'
+import User from '../models/user.model.js'
 
 const getAllPosts = async (req,res)=>{
    try{
@@ -26,8 +28,17 @@ export const addPost = async (req,res)=>{
       if(!title || !description || !location || !image || !date || !user){
          return res.status(422).json({message:"fill all fields"})
       }     
+      const existingUser = await User.findById(user);
+      if(!existingUser){
+         return res.status(404).json({message:"User not found"})
+      }
       const post = new Post({title, description, location, image, date:new Date(`${date}`), user})
-      await post.save()
+      const session = await mongoose.startSession();
+      session.startTransaction();
+      existingUser.posts.push(post);
+      await existingUser.save({session});
+      await post.save({session});
+      await session.commitTransaction()
       return res.status(200).json({message:"post submitted successfull.",post})
    }catch(err){
       console.log(err);
