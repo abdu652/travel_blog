@@ -24,27 +24,28 @@ export default getAllPosts;
 
 export const addPost = async (req,res)=>{
    try{
+      // validate the request
       const {title, description, location, image, date, user} = req.body;
       if(!title || !description || !location || !image || !date || !user){
          return res.status(422).json({message:"fill all fields"})
       }     
+      // check if user exists
       const existingUser = await User.findById(user);
       if(!existingUser){
          return res.status(404).json({message:"User not found"})
       }
-      const post = new Post({title, description, location, image, date:new Date(`${date}`), user})
-      const session = await mongoose.startSession();
-      session.startTransaction();
+      // create a new post
+      const post = new Post({title, description, location, image, date:new Date(date), user})
       existingUser.posts.push(post);
-      await existingUser.save({session});
-      await post.save({session});
-      await session.commitTransaction()
-      return res.status(200).json({message:"post submitted successfull.",post})
+      await existingUser.save();
+      await post.save();
+      // return the response
+      return res.status(200).json({ message: "post submitted successfull.", post });
    }catch(err){
       console.log(err);
       return res.status(500).json({
          message:"error in addPost file",
-         error:err.message
+         error:err.message || "unknown error"
       })
    }
 }
@@ -88,6 +89,8 @@ export const deletePost = async (req,res)=>{
    try{
       const {id} = req.params;
       const post = await Post.findByIdAndDelete(id);
+      const user = await User.findById(post.user);
+      user.posts.pull(post);
       return res.status(200).json({message:"post deleted successfully."})
    }catch(err){
       console.log(err);

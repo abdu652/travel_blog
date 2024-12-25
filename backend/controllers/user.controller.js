@@ -56,31 +56,33 @@ export const signup = async (req,res)=>{
 
 export const login = async (req,res)=>{
    try{
-      console.log(req.body)
       const {email, password} = req.body;
       if(!email || !password){
          return res.status(422).json({
             message:"please fill all fields",
             success:false
          })
-         const userExists = await User.findone({email})
-         console.log("hi")
-         if(!userExists){
-            return res.status(200).json({
-               message:"User not found!"
-            })
-         }
-         const userHashedPassword = userExists.password;
-         const isMatch = await bcrypt.compare(password,userHashedPassword);
-         if(!isMatch){
-            return res.status(200).json({
-               message:"Incorrect password!"
-            })
-         }
-         return res.status(200).json({
-            message:"login successful"
-         });
       }
+      // check if user exists
+      const userExists = await User.findOne({email})
+      if(!userExists){
+         return res.status(200).json({
+            message:"User not found!"
+         })
+      }
+      // check if password is correct
+      const userHashedPassword = userExists.password;
+      const isMatch =  bcrypt.compare(password,userHashedPassword);
+      if(!isMatch){
+         return res.status(200).json({
+            message:"Incorrect password!"
+         })
+      }
+      // login success
+      return res.status(200).json({
+         message:"login successful"
+      });
+      
    }catch(err){
       console.log(err)
       return res.status(500).json({
