@@ -89,8 +89,18 @@ export const deletePost = async (req,res)=>{
    try{
       const {id} = req.params;
       const post = await Post.findByIdAndDelete(id);
+      // check if the post exists
+      if(!post){
+         return res.status(404).json({message:"Post not found!"})
+      }
+
       const user = await User.findById(post.user);
+      // check if the user exists
+      if(!user){
+         return res.status(404).json({message:"User not found!"})
+      }
       user.posts.pull(post);
+      await user.save();
       return res.status(200).json({message:"post deleted successfully."})
    }catch(err){
       console.log(err);
