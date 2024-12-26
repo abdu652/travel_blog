@@ -1,10 +1,11 @@
 import React from 'react'
-
+import Card from '../Diaries/Diaries.jsx'
+import {Box} from '@mui/system'
 const Diaries = () => {
   return (
-    <div>
-      diaries
-    </div>
+    <Box>
+      <Card/>
+    </Box>
   )
 }
 
