@@ -6,6 +6,7 @@ import Home from './components/Pages/Home.jsx'
 import Diaries from './components/Pages/Diaries.jsx'
 import Auth from './components/Pages/Auth.jsx'
 function App() {
+  
   return (
     <div>
       <header>

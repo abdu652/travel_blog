@@ -5,7 +5,7 @@ import Forest from '../../assets/images/forest.jpg'
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({title, date, description, location, image}) {
   return (
 		<Card
 			sx={{
@@ -27,11 +27,11 @@ export default function RecipeReviewCard() {
 						{<LocationOnIcon />}
 					</IconButton>
 				}
-				title="Shrimp and Chorizo Paella"
+				title={title}
 				header="Addis"
-				subheader="September 14, 2016"
+				subheader={date}
 			/>
-			<img src={Forest} alt="forest" />
+			<img src={image} alt="forest" />
 			<CardContent>
 				<Typography
 					paddingBottom={1}
@@ -41,7 +41,7 @@ export default function RecipeReviewCard() {
 						paddingBottom={1}
 						variant="body2"
 						sx={{ color: "text.secondary" }}>
-						This impression panella
+						{title}
 					</Typography>
 				</Typography>
 				<hr />
@@ -58,9 +58,7 @@ export default function RecipeReviewCard() {
 						variant="body2"
 						fontWeight={"bold"}
 						sx={{ color: "text.secondary" }}>
-						This impressive paella is a perfect party dish and a fun meal
-						to cook together with your guests. Add 1 cup of frozen peas
-						along with the mussels, if you like.
+						{description}
 					</Typography>
 				</Box>
 			</CardContent>
