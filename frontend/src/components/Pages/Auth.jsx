@@ -7,9 +7,7 @@ const Auth = () => {
   const [inputs, setInputs] = useState({name:"", email:"", password:""});
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted");
-    console.log(inputs);
-    if(isSignup){
+    if(isSignup){ 
       sendAuthData(true, inputs)
       .then((data)=>{
         console.log(data);
@@ -19,20 +17,24 @@ const Auth = () => {
       })
   }
   else{ 
-    sendAuthData(false, inputs)
-    .then((data)=>{
-      console.log(data);
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+	const loginData = {
+	email: inputs.email,
+	password: inputs.password
+	}
+	sendAuthData(false, loginData)
+	.then((data)=>{
+	console.log(data);
+	})
+	.catch((err)=>{
+	console.log(err);
+	})
   }
   }
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setInputs((prev)=>{
-      return {...prev, [name]:value}
-    })
+	const {name, value} = e.target;
+	setInputs((prev)=>{
+	return {...prev, [name]:value}
+	})
   }
 
   return (
