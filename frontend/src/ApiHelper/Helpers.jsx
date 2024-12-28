@@ -13,15 +13,18 @@ const Helpers = async ()=>{
 
 export default Helpers;
 
-const sendAuthData = async (signup, data) => {
-   const response = await axios.post(`http://localhost:3000/${signup ? "signup" : "login"}`, data)
-   .catch((err)=>{
-      console.log(err);
-   });
-   if(response.status !== 200 || response.status !== 201){
+export const sendAuthData = async (signup, data) => {
+   try{
+   const response = await axios.post(`http://localhost:3000/user/${signup ? "signup" : "login"}`, data)
+   if(response.status !== 200 && response.status !== 201){
       console.log("Error fetching data");
-      return null;
+      return response.data;
    }
    console.log(response.data);
    return response.data;
+   }
+   catch(err){
+      console.log(err.message);
+      return null;
+   }
 }
