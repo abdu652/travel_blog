@@ -27,8 +27,8 @@ export default function RecipeReviewCard({title, date, description, location, im
 						{<LocationOnIcon />}
 					</IconButton>
 				}
-				title={title}
-				header="Addis"
+				title={location}
+				header={location}
 				subheader={date}
 			/>
 			<img src={image} alt="forest" />
