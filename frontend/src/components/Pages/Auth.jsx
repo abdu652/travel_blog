@@ -10,7 +10,6 @@ const Auth = () => {
     if(isSignup){ 
       sendAuthData(true, inputs)
       .then((data)=>{
-        console.log(data);
       })
       .catch((err)=>{
         console.log(err);
@@ -23,7 +22,6 @@ const Auth = () => {
 	}
 	sendAuthData(false, loginData)
 	.then((data)=>{
-	console.log(data);
 	})
 	.catch((err)=>{
 	console.log(err);
@@ -75,7 +73,7 @@ const Auth = () => {
 					</Button>
 					<Button
             onClick={() => setIsSignup(!isSignup)}
-						type="submit"
+						type="button"
 						variant="outlined"
 						margin={"auto"}
 						sx={{ mt: 2, borderRadius: 10 }}>
