@@ -5,6 +5,8 @@ import './App.css'
 import Home from './components/Pages/Home.jsx'
 import Diaries from './components/Pages/Diaries.jsx'
 import Auth from './components/Pages/Auth.jsx'
+import Add from './components/Pages/Add.jsx'
+import Profile from './components/Pages/Profile.jsx'
 function App() {
   
   return (
@@ -16,6 +18,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/diaries" element={<Diaries />} />
       <Route path="/auth" element={<Auth />} />
+      <Route path="/Add" element={<Add />} />
+      <Route path="/Profile" element={<Profile />} />
       </Routes>
     </div>
   )
