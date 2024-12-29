@@ -14,4 +14,4 @@ const authSlice = createSlice({
 });
 
 export const authActions = authSlice.actions;
-export const store = configureStore({reducers:authSlice.reducer});
+export const store = configureStore({reducer:authSlice.reducer});

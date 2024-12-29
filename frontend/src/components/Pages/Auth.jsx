@@ -2,7 +2,10 @@ import React,{useState} from 'react'
 import { Button, FormLabel, TextField, Typography } from '@mui/material'
 import {Box} from '@mui/system'
 import { sendAuthData } from '../../ApiHelper/Helpers'
+import { authActions } from '../../store/index.js'
+import { useDispatch } from 'react-redux'
 const Auth = () => {
+	const dispatch = useDispatch();
   const [isSignup, setIsSignup] = useState(false);
   const [inputs, setInputs] = useState({name:"", email:"", password:""});
   const handleSubmit = (e) => {
@@ -10,6 +13,10 @@ const Auth = () => {
     if(isSignup){ 
       sendAuthData(true, inputs)
       .then((data)=>{
+			if(data){
+				localStorage.setItem("userId",data.id)
+				dispatch(authActions.login());
+			}
       })
       .catch((err)=>{
         console.log(err);
@@ -21,11 +28,16 @@ const Auth = () => {
 	password: inputs.password
 	}
 	sendAuthData(false, loginData)
-	.then((data)=>{
-	})
-	.catch((err)=>{
-	console.log(err);
-	})
+		.then((data) => { 
+			if(data){
+				localStorage.setItem("userId", data.id);
+				dispatch(authActions.login());
+				console.log(data);
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+		});
   }
   }
   const handleChange = (e) => {
@@ -62,7 +74,7 @@ const Auth = () => {
 					<FormLabel>Email</FormLabel>
 					<TextField value={inputs.email} name='email' onChange={handleChange} margin="normal" />
 					<FormLabel>Password</FormLabel>
-					<TextField value={inputs.password} name='password' onChange={handleChange} margin="normal" />
+					<TextField value={inputs.password}  name='password' onChange={handleChange} margin="normal" />
 					<Button
 
 						type="submit"
