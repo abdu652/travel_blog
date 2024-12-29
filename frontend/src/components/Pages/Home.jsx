@@ -3,8 +3,11 @@ import { Button,Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Road from '../../assets/images/road.jpg'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
+  const isLogin = useSelector((state)=>state.isLoggedin)
+  console.log(isLogin);
   return (
     <div>
       <Box position={"relative"} width="100%" height="90vh">
