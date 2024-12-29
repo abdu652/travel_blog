@@ -28,14 +28,20 @@ export const signup = async (req,res)=>{
    try{
       const {name, email, password} = req.body;
       if(!email || !password || !name ){
-         return res.status(422).json({message:"fill all fileds"});
+         return res.status(422).json({
+            message:"fill all fileds",
+            success:false
+         });
       }
       if(password.length < 6){
-         return res.status(422).json({ message: "password should be greater than 6 character" });
+         return res.status(422).json({ 
+            message: "password should be greater than 6 character",
+            success:false
+         });
       }
       const userExists = await User.findOne({email});
       if(userExists){
-         return res.status(200).json({
+         return res.status(409).json({
             message:"user already exists",
             success:false
          })
@@ -44,12 +50,18 @@ export const signup = async (req,res)=>{
       const hashedPassword = await bcrypt.hash(password, salt);
       const user = new User({name, email,password:hashedPassword});
       await user.save()
-      return res.status(201).json({message:"User created successfully."});
+      const id = user._id;
+      return res.status(201).json({
+         message:"User created successfully.",
+         success:true,
+         id
+      });
    }catch(err){
       console.log(err.message)
       return res.status(500).json({
          message:"can't insertt data while signup",
-         error:err.message
+         error:err.message,
+         success:false
       });
    }
 }
@@ -66,8 +78,9 @@ export const login = async (req,res)=>{
       // check if user exists
       const userExists = await User.findOne({email})
       if(!userExists){
-         return res.status(200).json({
-            message:"User not found!"
+         return res.status(404).json({
+            message:"User not found!",
+            success:false
          })
       }
       // check if password is correct
@@ -75,19 +88,24 @@ export const login = async (req,res)=>{
       const isMatch = await bcrypt.compare(password,userHashedPassword);
       if(!isMatch){
          return res.status(401).json({
-            message:"Incorrect password!"
+            message:"Incorrect password!",
+            success:false
          })
       }
       // login success
+      const id = userExists._id;
       return res.status(200).json({
-         message:"login successful"
+         message:"login successful",
+         success:true,
+         id
       });
       
    }catch(err){
       console.log(err)
       return res.status(500).json({
          message:"error occure in login controller",
-         error:err.message
+         error:err.message,
+         success:false
       })
    }
 }
