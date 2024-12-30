@@ -1,8 +1,28 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Box} from '@mui/system'
 import {FormLabel, Typography,Button, TextField} from '@mui/material'
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 function Add() {
+  const [addPost, setAddPost] = useState({
+    title:"",
+    description:"",
+    imageUrl:"",
+    location:"",
+    date:""
+  })
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setAddPost((prevValue)=>{
+      return{
+        ...prevValue,
+        [name]:value
+      }
+    })
+  }
+    const handleSubmit = (e)=>{
+      e.preventDefault();
+      console.log(addPost);
+    }
   return (
     <Box
     display ="flex"
@@ -18,7 +38,7 @@ function Add() {
       <Typography variant ="h4" fontFamily={"dancing script"}>Add Your travel Diary</Typography>
       <TravelExploreIcon sx={{ fontSize:"40px",paddingLeft:1,color:"lightcoral"}} />
       </Box>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Box
           padding ={3}
           margin ="auto"
@@ -26,17 +46,17 @@ function Add() {
           flexDirection={"column"}
           width="80%"
           >
-          <FormLabel sx={{fontFamily:'Roboto'}}>Title</FormLabel>
-          <TextField variant ='standard' margin='normal' />
-          <FormLabel sx={{fontFamily:'Roboto'}}>Description</FormLabel>
-          <TextField variant ='standard' margin='normal' />
-          <FormLabel sx={{fontFamily:'Roboto'}}>Image URL</FormLabel>
-          <TextField variant ='standard' margin='normal' />
-          <FormLabel sx={{fontFamily:'Roboto'}}>Location</FormLabel>
-          <TextField variant ='standard' margin='normal' />
-          <FormLabel sx={{fontFamily:'Roboto'}} >Date</FormLabel>
-          <TextField variant='standard' margin='normal' />
-          <Button variant='contained'color='warning' sx={{margin:"auto",mt:2,width:"50%", borderRadius:7}}>POST</Button>
+          <FormLabel>Title</FormLabel>
+          <TextField variant ='standard' margin='normal' name='title' value={addPost.title} onChange={handleChange} />
+          <FormLabel>Description</FormLabel>
+          <TextField variant ='standard' margin='normal' name='description' value={addPost.description} onChange={handleChange} />
+          <FormLabel>Image URL</FormLabel>
+          <TextField variant ='standard' margin='normal' name='imageUrl' value={addPost.imageUrl} onChange={handleChange} />
+          <FormLabel>Location</FormLabel>
+          <TextField variant ='standard' margin='normal' name='location' value={addPost.location} onChange={handleChange} />
+          <FormLabel>Date</FormLabel>
+          <TextField variant='standard' margin='normal' name='date' value={addPost.date} onChange={handleChange} />
+          <Button type='submit' variant='contained'color='warning' sx={{margin:"auto",mt:2,width:"50%", borderRadius:7}}>POST</Button>
           </Box>
         </form>
       </Box>
