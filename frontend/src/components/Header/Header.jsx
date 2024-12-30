@@ -5,7 +5,7 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import { useSelector } from 'react-redux';
 function Header() {
   const isLoggedIn = useSelector((state)=>state.isLoggedin);
-   const linkArr = ["home", "diaries", "auth"];
+   const linkArr = ["home", "diaries", "auth","Add"];
    const loggedInLink = ["home", "diaries", "Add", "profile"];
    const [value, setValue] = useState();
   return (
