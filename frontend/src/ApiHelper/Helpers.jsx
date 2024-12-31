@@ -25,3 +25,17 @@ export const sendAuthData = async (signup, data) => {
       return null;
    }
 }
+
+export const addPostData = async (data)=>{
+   try{
+      const res = await axios.post(process.env.API_REQUEST,data);
+      if(res.status > 300){
+         console.log(res.data);
+         return null;
+      }
+      return res.data;
+   }catch(err){
+      console.log(err)
+      return null;
+   }
+}
