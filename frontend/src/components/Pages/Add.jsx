@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import { addPostData } from '../../ApiHelper/Helpers.jsx';
 import {Box} from '@mui/system'
 import {FormLabel, Typography,Button, TextField} from '@mui/material'
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
@@ -21,7 +22,13 @@ function Add() {
   }
     const handleSubmit = (e)=>{
       e.preventDefault();
-      console.log(addPost);
+
+      addPostData(addPost).then((data)=>{
+        console.log(data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
     }
   return (
     <Box

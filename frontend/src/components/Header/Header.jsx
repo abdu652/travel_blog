@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { Link } from 'react-router-dom';
 import {AppBar, Toolbar, Tabs,Tab} from '@mui/material'
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import ExploreIcon from '@mui/icons-material/Explore';
 import { useSelector } from 'react-redux';
 function Header() {
   const isLoggedIn = useSelector((state)=>state.isLoggedin);
@@ -12,7 +13,7 @@ function Header() {
 		<div>
 			<AppBar sx={{ bgcolor: "transparent", position: "sticky" }}>
 				<Toolbar>
-					<TravelExploreIcon sx={{ color: "gray" }} />
+					<ExploreIcon sx={{ color: "green" }} />
 
 					<Tabs
 						value={value}
