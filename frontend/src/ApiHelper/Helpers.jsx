@@ -28,7 +28,13 @@ export const sendAuthData = async (signup, data) => {
 
 export const addPostData = async (data)=>{
    try{
-      const res = await axios.post(process.env.API_REQUEST,data);
+      const id = localStorage.getItem('userId')
+      console.log(id)
+      if(!id){
+         console.log('login first!')
+         return null
+      }
+      const res = await axios.post("http://localhost:3000/posts",{...data, user:id, image:data.imageUrl});
       if(res.status > 300){
          console.log(res.data);
          return null;
