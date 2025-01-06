@@ -19,7 +19,9 @@ const Diaries = () => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" padding={3}>
       {posts.length >0 && posts.map((item, index)=><Card key={index} {...item}
-       date = {new Date(item.date).toLocaleDateString()} />)}
+       date = {new Date(item.date).toLocaleDateString()}
+		 id = {item._id}
+		  />)}
     </Box>
   )
 }

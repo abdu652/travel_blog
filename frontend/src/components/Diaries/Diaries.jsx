@@ -5,7 +5,16 @@ import Forest from '../../assets/images/forest.jpg'
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-export default function RecipeReviewCard({title, date, description, location, image}) {
+import { Link } from 'react-router-dom';
+export default function RecipeReviewCard({title, date, description, location, image, user, id}) {
+	const isLoggedIn = ()=>{
+		if(localStorage.getItem('userId') === user){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
   return (
 		<Card
 			sx={{
@@ -62,12 +71,14 @@ export default function RecipeReviewCard({title, date, description, location, im
 					</Typography>
 				</Box>
 			</CardContent>
+			{ isLoggedIn() &&
 			<Box display="flex">
 				<CardActions sx={{ml:"auto"}}>
-					<IconButton color='warning'><EditIcon/></IconButton>
-					<IconButton color='error'><DeleteForeverIcon/></IconButton>
+					<IconButton color='warning' LinkComponent={Link} to ={`/posts/${id}`}><EditIcon/></IconButton>
+					<IconButton color='error'><DeleteForeverIcon os/></IconButton>
 				</CardActions>
 			</Box>
+			}
 		</Card>
   );
 }

@@ -34,7 +34,7 @@ export const addPostData = async (data)=>{
          console.log('login first!')
          return null
       }
-      const res = await axios.post("http://localhost:3000/posts",{...data, user:id, image:data.imageUrl});
+      const res = await axios.post("http://localhost:3000/posts",{...data, user:id});
       if(res.status > 300){
          console.log(res.data);
          return null;
@@ -43,5 +43,17 @@ export const addPostData = async (data)=>{
    }catch(err){
       console.log(err)
       return null;
+   }
+}
+
+export const getAllPostDetails = async (id)=>{
+   try{
+      const allPosts = await axios.get(`http://localhost:3000/posts/${id}`)
+      if(allPosts.status > 300) return null;
+      console.log(allPosts)
+      return allPosts.data;
+   }catch(err){
+      console.log(err.message)
+      return null
    }
 }

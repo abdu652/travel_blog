@@ -4,7 +4,7 @@ const router = Router();
 router.get('/',getAllposts);
 router.post('',addPost);
 router.get('/:id',getPostById);
-router.post('/:id',updatePost);
+router.put('/:id',updatePost);
 router.delete('/:id',deletePost);
 
 export default router;

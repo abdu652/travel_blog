@@ -4,9 +4,10 @@ import {AppBar, Toolbar, Tabs,Tab} from '@mui/material'
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ExploreIcon from '@mui/icons-material/Explore';
 import { useSelector } from 'react-redux';
+// qgNNe4H7Sj8bVd17
 function Header() {
   const isLoggedIn = useSelector((state)=>state.isLoggedin);
-   const linkArr = ["home", "diaries", "auth","Add"];
+   const linkArr = [ "home", "diaries", "auth","Add"];
    const loggedInLink = ["home", "diaries", "Add", "profile"];
    const [value, setValue] = useState();
   return (

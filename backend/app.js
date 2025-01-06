@@ -13,7 +13,7 @@ app.use(cors({origin:'http://localhost:5173'}));
 app.use(express.json())
 app.use('/user',userRoute);
 app.use('/posts',postRouter);
-app.listen(port,()=>{
+app.listen(port,async ()=>{
    console.log(`server is listening on port:${port}`)
-   db()
+   await db()
 })

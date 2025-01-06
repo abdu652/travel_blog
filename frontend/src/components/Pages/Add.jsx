@@ -7,7 +7,7 @@ function Add() {
   const [addPost, setAddPost] = useState({
     title:"",
     description:"",
-    imageUrl:"",
+    image:"",
     location:"",
     date:""
   })
@@ -58,7 +58,7 @@ function Add() {
           <FormLabel>Description</FormLabel>
           <TextField variant ='standard' margin='normal' name='description' value={addPost.description} onChange={handleChange} />
           <FormLabel>Image URL</FormLabel>
-          <TextField variant ='standard' margin='normal' name='imageUrl' value={addPost.imageUrl} onChange={handleChange} />
+          <TextField variant ='standard' margin='normal' name='image value={addPost.image}' onChange={handleChange} />
           <FormLabel>Location</FormLabel>
           <TextField variant ='standard' margin='normal' name='location' value={addPost.location} onChange={handleChange} />
           <FormLabel>Date</FormLabel>
