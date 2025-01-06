@@ -6,6 +6,7 @@ import Home from './components/Pages/Home.jsx'
 import Diaries from './components/Pages/Diaries.jsx'
 import Auth from './components/Pages/Auth.jsx'
 import Add from './components/Pages/Add.jsx'
+import Logout from './components/Pages/Logout.jsx'
 import Profile from './components/Pages/Profile.jsx'
 import UpdateDiaries from './components/Diaries/UpdateDiaries.jsx'
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Route path="/Add" element={<Add />} />
       <Route path="/Profile" element={<Profile />} />
       <Route path="/posts/:id" element={<UpdateDiaries />} />
+      <Route path="/logout" element={<Logout />} />
       </Routes>
     </div>
   )

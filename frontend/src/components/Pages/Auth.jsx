@@ -9,30 +9,31 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [inputs, setInputs] = useState({name:"", email:"", password:""});
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if(isSignup){ 
-      sendAuthData(true, inputs)
+	  e.preventDefault();
+	  if(isSignup){ 
+		  sendAuthData(true, inputs)
       .then((data)=>{
 			if(data){
 				localStorage.setItem("userId",data.id)
 				dispatch(authActions.login());
+				setInputs({name:"", email:"", password:""});
 			}
       })
       .catch((err)=>{
-        console.log(err);
+			console.log(err);
       })
-  }
-  else{ 
-	const loginData = {
-	email: inputs.email,
-	password: inputs.password
 	}
-	sendAuthData(false, loginData)
-		.then((data) => { 
-			if(data){
-				localStorage.setItem("userId", data.id);
-				dispatch(authActions.login());
-				console.log(data);
+	else{ 
+		const loginData = {
+			email: inputs.email,
+	password: inputs.password
+}
+sendAuthData(false, loginData)
+.then((data) => { 
+	if(data){
+		localStorage.setItem("userId", data.id);
+		dispatch(authActions.login());
+		setInputs({name:"", email:"", password:""});
 			}
 		})
 		.catch((err) => {

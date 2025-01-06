@@ -35,6 +35,7 @@ function UpdateDiaries() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(addPost);
     addPostData(addPost)
       .then((data) => console.log(data))
       .catch((err) => console.error(err));
@@ -80,7 +81,7 @@ function UpdateDiaries() {
           <TextField
             variant="standard"
             margin="normal"
-            name="imageUrl"
+            name="image"
             value={addPost?.image || ''}
             onChange={handleChange}
           />
